@@ -2,7 +2,10 @@ const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require('path');
-
+const flash = require('connect-flash');
+const session = require('express-session');
+const mysqlStore = require('express-mysql-session');
+const {database} = require('./keys');
 
 // intializations 
 const app = express();
@@ -26,6 +29,14 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 // MIddlewares son funciones que se ejecutan cada vez que se pide una peticion
+app.use(session({
+    secret: 'g4brieljs',
+    resave: false,
+    saveUninitialized: false,
+    store: new mysqlStore(database)
+}));
+// Esto nos permite enviar mensaje através de distintas vistas
+app.use(flash());
 // son funciones que se ejecutan cada vez que se envia un dato a la db
 app.use(morgan('dev'));
 // Morgan muestra por consola las peticiones que van llegando
@@ -34,13 +45,14 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // Global variables EXPRESS / todas las variables que mi programa necesite // Cuando nos autentiquemos podremos acceder a estas informaciones
-// app.use((req, res, next) => {
+app.use((req, res, next) => {
     // req = toma los datos del usuario 
     // res = Lo que el sever quiere responder
     // next = pasa a la siguiente parte del codigo
     // ESTO nos permite acceder a variables desde cualquier parte de la aplicacion
-
-    // });
+    app.locals.success = req.flash('success');
+    next();
+    }); 
 
 
 // Routes 
