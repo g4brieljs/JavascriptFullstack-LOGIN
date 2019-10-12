@@ -25,9 +25,10 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
-// MIddlewares muestran las solicitudes de la base darso
+// MIddlewares son funciones que se ejecutan cada vez que se pide una peticion
 // son funciones que se ejecutan cada vez que se envia un dato a la db
 app.use(morgan('dev'));
+// Morgan muestra por consola las peticiones que van llegando
 // Esto sirve para poder aceptar los datos que me envien los usuarios
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
