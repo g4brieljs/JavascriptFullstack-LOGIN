@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Linkips</title>
+    {{!--CSS--}}
+    <link rel="stylesheet" href="css/styles.css">
     {{!-- FONTS --}}
     <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
     {{!-- Bootstrap --}}
@@ -13,8 +15,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     {{!-- FontAWESOME --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    {{!--CSS--}}
-    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -22,20 +22,8 @@
     {{!-- Partials --}}
     {{> navs }}
 
-    {{#if success}}
-    <div class="container pt-3">
-        <div class="row">
-            <div class="col-md-4 mx-auto">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{success}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
-                        <span arial-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/if}}
+    {{!-- message for user --}}
+    {{> message}}
 
     {{!--Sintasyx de handlebars--}}
     {{{ body }}}

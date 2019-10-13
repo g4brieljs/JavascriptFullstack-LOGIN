@@ -1,0 +1,24 @@
+<main class="index">
+    <header class="masthead d-flex">
+        <div class="container text-center mt-5">
+             <img src="img/logo2.png" alt="logo home" class="img-fluid" style="width: 150px; height: 150px">
+            <h1>Linkips</h1>
+            <h2 class="mb-5" style="font-size: 28px;">Store your favorite links</h2>
+            {{#if user}}
+            <a href="/signin" class="btn btn-primary">
+                Login
+            </a>
+            <a href="/signup" class="btn btn-primary">
+                Register
+            </a>
+            {{else}}
+                <a href="/links" class="btn btn-primary">
+                All my Linkips
+                </a>
+                <a href="/links/add" class="btn btn-primary">
+                Add Linkips
+                </a>
+            {{/if}}
+        </div>
+    </header>
+</main>

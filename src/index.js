@@ -6,9 +6,11 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const mysqlStore = require('express-mysql-session');
 const {database} = require('./keys');
+const passport = require('passport');
 
 // intializations 
 const app = express();
+require('./lib/passport');
 
 // settings 
 app.set('port', process.env.PORT || 4000);
@@ -43,6 +45,9 @@ app.use(morgan('dev'));
 // Esto sirve para poder aceptar los datos que me envien los usuarios
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+//passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Global variables EXPRESS / todas las variables que mi programa necesite // Cuando nos autentiquemos podremos acceder a estas informaciones
 app.use((req, res, next) => {
@@ -51,8 +56,11 @@ app.use((req, res, next) => {
     // next = pasa a la siguiente parte del codigo
     // ESTO nos permite acceder a variables desde cualquier parte de la aplicacion
     app.locals.success = req.flash('success');
+    app.locals.message = req.flash('message');
+    app.locals.user = req.user;
+    
     next();
-    }); 
+}); 
 
 
 // Routes 
